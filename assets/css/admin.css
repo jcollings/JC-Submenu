@@ -1,0 +1,79 @@
+.jc-submenu-populate-block{
+	color: #777;
+	border: #DFDFDF 1px solid;
+	/*border-bottom: none;*/
+	/*padding: 10px 0 10px 10px;*/
+	padding:0;
+	width: 367px;
+}
+
+.jc-submenu-populate-block label{
+	display: block;
+}
+
+.jc-submenu-populate-block input[type=text], .jc-submenu-populate-block select{
+	width:100%;
+}
+
+.jc-submenu-row{
+	clear: both;
+	margin:10px 0 10px 10px;
+}
+
+.jc-submenu-row p{
+	padding-right: 4%;
+	width:96%;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+.jc-submenu-row .jc_two_cols{
+	overflow: hidden;
+}
+
+.jc-submenu-row.jc_two_cols p{
+	width:46%;
+	float:left;
+	padding-right:4%;
+}
+
+.jc-accord-heading input{
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+p.jc-accord-heading{
+	margin: 0;
+	padding: 0;
+	width:100% !important;
+	float:left;
+	border-bottom: 1px solid #dfdfdf;
+}
+.jc-accord-heading label{
+	padding:9px;
+	background: #ededed;
+	color:#737373;
+}
+
+.jc-accord-heading.active label{
+	background: #737373;
+	color:#FFF;
+}
+
+.jc-accord-heading.jc-submenu-populate-archive{
+	border-bottom: none;
+}
+.jc-accord-heading.jc-submenu-populate-archive.active{
+	border-bottom: 1px solid #dfdfdf;
+}
+
+#jc-submenu-loading{
+	height:38px;
+	border: 1px solid #dfdfdf;
+	background: #ededed;
+	color:#737373;
+	line-height: 40px;
+	text-indent: 10px;
+	float:left;
+	width:367px;
+}
