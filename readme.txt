@@ -4,7 +4,7 @@ Donate link:
 Tags: submenu, menu, dynamic, custom post type, taxonomy, child pages
 Requires at least: 3.0.1
 Tested up to: 4
-Stable tag: 0.8.3
+Stable tag: 0.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,9 +22,6 @@ Also output a selected section of your dynamic menu through our advanced submenu
 1. Extract the plugin to your wordpress plugins folder.
 1. Activate the plugin from your wordpress administration area (under the plugins section).
 1. You should thee should now be able to use JC Submenu Plugin.
-1. Optional - If your theme already has a custom walker specified for outputing your menu, JC Submenu will not automatically override it, to do this locate the file your theme outputs the menu (usually header.php) and look for "wp\_nav\_menu()", and pass an extra argument so it looks similar:
-		 
-`wp_nav_menu(array('walker' => new JC_Submenu_Nav_Walker()));`
 
 For further documentation on installing and using JC Submneu features can be found [here](http://jamescollings.co.uk/wordpress-plugins/jc-submenu/).
 
@@ -46,6 +43,10 @@ The documentation for automatically populating menu items can be found [here](ht
 
 A list of all actions and filters can be found [here](http://jamescollings.co.uk/jc-submenu/sections/actions-filters/)
 
+= How do i use JC Submenu when my theme uses a custom menu walker =
+
+The documentation to disable JC_Submenu_Nav_Walker and use your own can be found [here](http://jamescollings.co.uk/docs/v1/jc-submenu/how-tos/enable-menu-walker-compatability/) 
+
 
 == Screenshots ==
 
@@ -55,6 +56,10 @@ A list of all actions and filters can be found [here](http://jamescollings.co.uk
 4. JC Submenu, Advanced Submenu Widget Options
 
 == Changelog ==
+
+**0.8.4**
+
+* Fix menu highlighting when not using JC_Submenu_Nav_Walker
 
 **0.8.3**
 

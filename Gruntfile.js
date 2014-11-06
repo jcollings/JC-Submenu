@@ -9,6 +9,7 @@ module.exports = function(grunt) {
                     {expand: true, src: ['assets/**'], dest: 'build/'},
                     {expand: true, src: ['views/**'], dest: 'build/'},
                     {expand: true, src: ['walkers/**'], dest: 'build/'},
+                    {expand: true, src: ['widgets/**'], dest: 'build/'},
                     {expand: false, src: ['readme.txt'], dest: 'build/readme.txt'},
                     {expand: false, src: ['screenshot-1.png'], dest: 'build/screenshot-1.png'},
                     {expand: false, src: ['screenshot-2.png'], dest: 'build/screenshot-2.png'},
@@ -20,7 +21,7 @@ module.exports = function(grunt) {
                 ]
             }
         },
-        clean: ["build"],
+        clean: ["build/*", "!build/.svn/*"],
         uglify: {
             my_target: {
                 files: {
@@ -45,6 +46,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'copy', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['clean', 'copy']);
 
 };
