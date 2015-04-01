@@ -261,10 +261,49 @@ class JC_Submenu_Nav_Walker extends Walker_Nav_Menu {
 		return $elements;
 	}
 
+	/**
+	 * Find all elements with children and add parent classes
+	 * @param array $elements
+	 */
+	public function add_parent_classes($elements = array()){
+
+		$parents = array();
+		$temp = array();
+
+		$id_field = $this->db_fields['id'];
+		$parent_field = $this->db_fields['parent'];
+
+		foreach($elements as $e_index => $element){
+
+			// get all ids and their indexs
+			$temp[$element->$id_field] = $e_index;
+
+			// get list of parents from children
+			if($element->$parent_field > 0){
+				$parents[] = $element->$parent_field;
+			}
+		}
+
+		foreach($parents as $parent){
+
+			if(isset($temp[$parent])){
+				$e = $elements[$temp[$parent]];
+				if( isset($e->classes) && is_array($e->classes) && !in_array( 'menu-item-has-children', $e->classes ) ){
+					$e->classes[] = 'menu-item-has-children';					
+				}
+			}
+		}
+
+		return $elements;
+	}
+
 	public function _process_menu($elements = array()){
 
 		$id_field = $this->db_fields['id'];
 		$parent_field = $this->db_fields['parent'];
+
+		// add menu item has children class
+		$elements = $this->add_parent_classes($elements);
 
 		// set menu item status
 		$elements = $this->_set_elements_state($elements);
