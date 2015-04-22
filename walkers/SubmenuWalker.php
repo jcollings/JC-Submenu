@@ -839,7 +839,7 @@ class JC_Submenu_Nav_Walker extends Walker_Nav_Menu {
 			$t->title = apply_filters( 'jcs/term_item_title', $t->title, $t->ID );
 
 			$t->url = apply_filters( 'jcs/item_url', get_term_link( $t, $taxonomy ), $t->ID , 'term');
-			$t->url = apply_filters( 'jcs/term_item_url', $t->url, $t->ID );
+			$t->url = apply_filters( 'jcs/term_item_url', $t->url, $t->ID, $taxonomy );
 
 			$t->classes = array();
 			
