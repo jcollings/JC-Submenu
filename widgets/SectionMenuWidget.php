@@ -213,4 +213,7 @@ class JC_Section_Menu_Widget extends WP_Widget {
  
 }
  
-add_action( 'widgets_init', create_function( '', 'register_widget( "JC_Section_Menu_Widget" );' ) );
+add_action( 'widgets_init', 'register_jc_section_menu' );
+function register_jc_section_menu() {
+	register_widget( "JC_Section_Menu_Widget" );
+}
