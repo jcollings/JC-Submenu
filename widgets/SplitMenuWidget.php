@@ -185,5 +185,8 @@ class JC_Split_Menu_Widget extends WP_Widget {
 	}
  
 }
- 
-add_action( 'widgets_init', create_function( '', 'register_widget( "JC_Split_Menu_Widget" );' ) );
+
+function register_jc_split_menu_widget(){
+	register_widget( "JC_Split_Menu_Widget" );
+}
+add_action( 'widgets_init', 'register_jc_split_menu_widget' );

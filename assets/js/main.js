@@ -4,65 +4,65 @@
 
 var JC_Submenu = {
 
-	get_menu_id: function (id){
-		id= id.split("-");
-		id = id[id.length-1];
+	get_menu_id: function (id) {
+		id = id.split("-");
+		id = id[id.length - 1];
 		return id;
 	}
 
 };
 
-(function($){
+(function ($) {
 
 
 	/**
 	 * Display Active Menu Population Options
 	 * @since 0.2
 	 */
-	$('.jc-accord-heading').each(function(){
+	$('.jc-accord-heading').each(function () {
 
 		var accord_heading = $(this);
 		var id = JC_Submenu.get_menu_id(accord_heading.attr('id'));
 		var btn_handle = $('input', accord_heading);
 		var btn_label = $('label', accord_heading);
 
-		btn_handle.live('change', function(){
+		btn_handle.on('change', function () {
 
-			$('.jc-accord-heading', $('#menu-item-'+id)).removeClass('active');
-			$('.item-edit-panel', $('#menu-item-'+id)).hide();
+			$('.jc-accord-heading', $('#menu-item-' + id)).removeClass('active');
+			$('.item-edit-panel', $('#menu-item-' + id)).hide();
 
-			if($(this).attr('checked') == 'checked'){
-				$( '.show-'+$(this).val() , $('#menu-item-'+id) ).show();
+			if ($(this).is(':checked')) {
+				$('.show-' + $(this).val(), $('#menu-item-' + id)).show();
 				accord_heading.addClass('active');
 			}
 		});
 
-		btn_label.click(function(event){
-			$('.jc-accord-heading input:checked', $('#menu-item-'+id)).attr('checked', false);
-			btn_handle.attr('checked', 'checked').trigger('change');
+		btn_label.click(function (event) {
+			$('.jc-accord-heading input:checked', $('#menu-item-' + id)).prop('checked', false);
+			btn_handle.prop('checked', true).trigger('change');
 			event.preventDefault();
 		});
 
 		btn_handle.filter(":checked").trigger('change');
 	});
-	
+
 	/**
 	 * Display JC Submenu Options
 	 * @since 0.2
 	 */
-	$('input.jc-submenu-autopopulate').each(function(index){
+	$('input.jc-submenu-autopopulate').each(function (index) {
 
 		var options_handle = $(this);
 		var id = JC_Submenu.get_menu_id(options_handle.attr('id'));
 
-		options_handle.live('change', function(){
-		    if($(this).attr('checked') == 'checked'){
-		         $( '#jc-submenu-populate-block-'+id).show();
-		         $('.jc-submenu-active').show();
-		    }else{
-		         $( '#jc-submenu-populate-block-'+id).hide();
-		         $('.jc-submenu-active').hide();
-		    }
+		options_handle.on('change', function () {
+			if ($(this).is(':checked')) {
+				$('#jc-submenu-populate-block-' + id).show();
+				$('.jc-submenu-active').show();
+			} else {
+				$('#jc-submenu-populate-block-' + id).hide();
+				$('.jc-submenu-active').hide();
+			}
 		});
 
 		options_handle.filter(':checked').trigger('change');
@@ -72,37 +72,37 @@ var JC_Submenu = {
 	 * Filter Taxonomy via selected Post Type
 	 * @since 0.2
 	 */
-	$('select[id^="edit-jc-submenu-populate-post"]').each(function(){
+	$('select[id^="edit-jc-submenu-populate-post"]').each(function () {
 
 		var post_select = $(this);
 		var id = JC_Submenu.get_menu_id(post_select.attr('id'));
-		var tax_select = $('select[id^="edit-jc-submenu-post-tax"]', $('#menu-item-'+id));
-		var term_select = $('select[id^="edit-jc-submenu-post-term"]', $('#menu-item-'+id));
+		var tax_select = $('select[id^="edit-jc-submenu-post-tax"]', $('#menu-item-' + id));
+		var term_select = $('select[id^="edit-jc-submenu-post-term"]', $('#menu-item-' + id));
 		var taxs = tax_select.clone();
 
 
-		post_select.live('change', function(){
+		post_select.on('change', function () {
 			var show_taxs = post_select.find(':selected').data('taxs').split(' ');
 			var selected = tax_select.find(':selected').val();
 
 			// tax_select = taxs.clone();
 			tax_select.empty();
 
-			$('option', taxs).each(function(index){
-				
+			$('option', taxs).each(function (index) {
+
 				var val = $(this).val();
 
-				if($.inArray(val, show_taxs) != -1 || val == 0){
+				if ($.inArray(val, show_taxs) != -1 || val == 0) {
 
 					var clone_option = $(this).clone().attr('selected', false);
 
-					if(val == selected){
+					if (val == selected) {
 						tax_select.append(clone_option.attr('selected', 'selected'));
-					}else{
-						tax_select.append(clone_option);	
+					} else {
+						tax_select.append(clone_option);
 					}
-				}else{
-					tax_select.find('option[value='+val+']').remove();
+				} else {
+					tax_select.find('option[value=' + val + ']').remove();
 				}
 			});
 
@@ -119,37 +119,37 @@ var JC_Submenu = {
 		post_select.trigger('change');
 
 	});
-	
+
 	/**
 	 * Filter Terms depending on chosen taxonomy
 	 * @since 0.2
 	 */
-	$('select[id^="edit-jc-submenu-post-tax"]').each(function(){
+	$('select[id^="edit-jc-submenu-post-tax"]').each(function () {
 
 		var tax_select = $(this);
 		var id = JC_Submenu.get_menu_id(tax_select.attr('id'));
-		var term_select = $('select[id^="edit-jc-submenu-post-term"]', $('#menu-item-'+id));
+		var term_select = $('select[id^="edit-jc-submenu-post-term"]', $('#menu-item-' + id));
 		var terms = term_select.clone();
 
-		tax_select.live('change', function(){
+		tax_select.on('change', function () {
 
 			var tax = tax_select.find(':selected').val();
 			var selected = term_select.find(':selected').val();
 
 			term_select.empty();
 
-			$('option', terms).each(function(index){
+			$('option', terms).each(function (index) {
 				var val = $(this).val();
 
-				if(tax == $(this).data('tax')){
+				if (tax == $(this).data('tax')) {
 					var clone_option = $(this).clone().attr('selected', false);
-					if(val == selected){
+					if (val == selected) {
 						term_select.append(clone_option.attr('selected', 'selected'));
-					}else{
-						term_select.append(clone_option);	
+					} else {
+						term_select.append(clone_option);
 					}
-				}else{
-					term_select.find('option[value='+val+']').remove();
+				} else {
+					term_select.find('option[value=' + val + ']').remove();
 				}
 			});
 
@@ -168,32 +168,32 @@ var JC_Submenu = {
 	 * Filter Taxonomy Terms depending on chosen taxonomy
 	 * @since  0.5.4
 	 */
-	$('select[id^="edit-jc-submenu-populate-tax"]').each(function(){
+	$('select[id^="edit-jc-submenu-populate-tax"]').each(function () {
 
 		var tax_select = $(this);
 		var id = JC_Submenu.get_menu_id(tax_select.attr('id'));
-		var term_select = $('select[id^="edit-jc-submenu-tax-term"]', $('#menu-item-'+id));
+		var term_select = $('select[id^="edit-jc-submenu-tax-term"]', $('#menu-item-' + id));
 		var terms = term_select.clone();
 
-		tax_select.live('change', function(){
+		tax_select.on('change', function () {
 
 			var tax = tax_select.find(':selected').val();
 			var selected = term_select.find(':selected').val();
 
 			term_select.empty();
 
-			$('option', terms).each(function(index){
+			$('option', terms).each(function (index) {
 				var val = $(this).val();
 
-				if(tax == $(this).data('tax') || $(this).data('tax') == 0){
+				if (tax == $(this).data('tax') || $(this).data('tax') == 0) {
 					var clone_option = $(this).clone().attr('selected', false);
-					if(val == selected){
+					if (val == selected) {
 						term_select.append(clone_option.attr('selected', 'selected'));
-					}else{
-						term_select.append(clone_option);	
+					} else {
+						term_select.append(clone_option);
 					}
-				}else{
-					term_select.find('option[value='+val+']').remove();
+				} else {
+					term_select.find('option[value=' + val + ']').remove();
 				}
 			});
 
@@ -212,7 +212,7 @@ var JC_Submenu = {
 	/**
 	* Document Ready
 	*/
-	$(document).ready(function(){
+	$(document).ready(function () {
 		$('.item-edit-panel').hide();
 	});
 
